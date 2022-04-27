@@ -1,17 +1,18 @@
 from selenium import webdriver
-
+import Tests.Utitlitis.GlobalFunctionETC.documents as DO
 
 def initroot():
     driver = webdriver.Chrome(
-        executable_path='C:/Users/Dell/Desktop/AutoMation Subjects/Selenium/WebDriver(Browsers)/Chrome/chromedriver.exe')
+        executable_path=DO.driver_executable_path)
+    driver.get(DO.contact_us_url)
     return driver
 
 
 def init_home_page():
     driver = webdriver.Chrome(
-        executable_path='C:/Users/Dell/Desktop/AutoMation Subjects/Selenium/WebDriver(Browsers)/Chrome/chromedriver.exe')
+        executable_path=DO.driver_executable_path)
 
-    driver.get("https://atid.store/")
+    driver.get(DO.base_url)
     driver.maximize_window()
     return driver
 

@@ -6,13 +6,12 @@ from selenium.webdriver.support.ui import WebDriverWait
 from colorama import Fore
 from colorama import Style
 
-from documents import *
-from root import initroot
+import Tests.Utitlitis.GlobalFunctionETC.documents as DO
+import Tests.Utitlitis.ContactUs.root as R
 
 
 def test_ui_top_page():
-    driver = initroot()
-    driver.get("https://atid.store/contact-us/")
+    driver = R.initroot()
     driver.implicitly_wait(12)
     navbar = driver.find_element(By.XPATH,
                                  "//header/div[@id='ast-desktop-header']/div[1]/div[1]/div[1]/div[1]/div[2]").text.split(
@@ -20,7 +19,7 @@ def test_ui_top_page():
     count = 0
     flag = True
     try:
-        for element, expected in zip(navbar, navbar_validetion):
+        for element, expected in zip(navbar, DO.navbar_validetion):
             if element == expected:
                 count += 1
         if count == 7:
@@ -38,7 +37,8 @@ def test_ui_top_page():
             print("The search bar logo is not stands on demands! ")
 
         sum_price_cart_logo = driver.find_element(By.XPATH,
-                                                  "//header/div[@id='ast-desktop-header']/div[1]/div[1]/div[1]/div[1]/div[3]/div[3]/div[1]/div[1]")
+                                                  "//header/div[@id='ast-desktop-header']/div[1]/div[1]/div[1]/div["
+                                                  "1]/div[3]/div[3]/div[1]/div[1]")
         try:
             WebDriverWait(driver, 15).until(
                 EC.visibility_of(sum_price_cart_logo)
@@ -63,8 +63,7 @@ def test_ui_top_page():
 
 
 def test_ui_mid_page():
-    driver = initroot()
-    driver.get('https://atid.store/contact-us/')
+    driver = R.initroot()
     left_col_title = driver.find_element(By.XPATH, "//h3[contains(text(),'You tell us. We listen.')]").text
     left_col_email = driver.find_element(By.XPATH, "//span[contains(text(),'hello@atid.store')]").text
     left_col_schedule = driver.find_element(By.XPATH,
@@ -96,8 +95,7 @@ def test_ui_mid_page():
 
 
 def test_ui_bottom_page():
-    driver = initroot()
-    driver.get('https://atid.store/contact-us/')
+    driver = R.initroot()
     img_contact_1 = driver.find_element(By.XPATH,
                                         "//body/div[@id='page']/div[@id='content']/div[1]/div[1]/main[1]/article["
                                         "1]/div[1]/div[1]/div[1]/section[3]/div[1]/div[1]/div[1]/div[1]/div[1]/div["
@@ -137,11 +135,11 @@ def test_ui_bottom_page():
             EC.visibility_of(i)
         )
 
-    for i, j in zip(contact_ls, contact_buttom_page):
+    for i, j in zip(contact_ls, DO.contact_buttom_page):
         assert i == j
 
 
-def test_daily_ui_contact_page():
+def test_ui_contact_page():
     test_ui_top_page()
     test_ui_mid_page()
     test_ui_bottom_page()
